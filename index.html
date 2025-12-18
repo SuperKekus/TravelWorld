@@ -1,0 +1,539 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TravelWorld - Туристическое агентство</title>
+    <meta name="description" content="Туристическое агентство TravelWorld. Подбираем лучшие туры по всему миру. Индивидуальный подход, гарантия лучшей цены.">
+    
+    <style>
+        /* Сброс и базовые стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f8f8;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Шапка */
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        
+        .nav a:hover {
+            color: #3498db;
+        }
+        
+        /* Главный баннер */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=1200&auto=format&fit=crop&q=60');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 180px 20px;
+            margin-top: 80px;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            color: #ecf0f1;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        /* Секции */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: #2c3e50;
+        }
+        
+        /* О нас */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Туры */
+        .tours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .tour-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .tour-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .tour-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .tour-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .tour-info {
+            padding: 20px;
+        }
+        
+        .tour-info h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .tour-price {
+            font-size: 20px;
+            color: #e74c3c;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        
+        /* Галерея */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 10px;
+            height: 250px;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        /* Контакты */
+        .contacts-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .contact-info p {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        /* Подвал */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .about-content,
+            .contacts-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: 50px 0;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                color: white;
+                font-size: 24px;
+                cursor: pointer;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+        
+        /* Мобильное меню */
+        .mobile-menu {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: #2c3e50;
+            padding: 20px;
+            display: none;
+            z-index: 999;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 0;
+            font-size: 18px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Иконки */
+        .icon {
+            margin-right: 10px;
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="#" class="logo">TravelWorld</a>
+                
+                <button class="mobile-menu-btn">☰</button>
+                
+                <nav class="nav">
+                    <a href="#home">Главная</a>
+                    <a href="#about">О нас</a>
+                    <a href="#tours">Туры</a>
+                    <a href="#gallery">Галерея</a>
+                    <a href="#contacts">Контакты</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Мобильное меню -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#home">Главная</a>
+        <a href="#about">О нас</a>
+        <a href="#tours">Туры</a>
+        <a href="#gallery">Галерея</a>
+        <a href="#contacts">Контакты</a>
+    </div>
+
+    <!-- Главный баннер -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Путешествуйте с комфортом</h1>
+            <p>Подберем идеальный тур по вашему бюджету. Более 10 лет на рынке туристических услуг.</p>
+            <a href="#tours" class="btn">Выбрать тур</a>
+        </div>
+    </section>
+
+    <!-- О нас -->
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title">О компании</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>TravelWorld — туристическое агентство с многолетним опытом работы на рынке. Мы специализируемся на организации индивидуальных и групповых туров по всему миру.</p>
+                    <p>Наша цель — сделать ваше путешествие комфортным, безопасным и незабываемым. Мы работаем только с проверенными партнерами и отелями.</p>
+                    <p>Гарантируем лучшие цены и индивидуальный подход к каждому клиенту. Ваш отдых — наша забота!</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&auto=format&fit=crop&q=60" alt="Офис TravelWorld">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Туры -->
+    <section class="section" id="tours" style="background: #f0f8ff;">
+        <div class="container">
+            <h2 class="section-title">Популярные туры</h2>
+            <div class="tours-grid">
+                <!-- Тур 1 -->
+                <div class="tour-card">
+                    <div class="tour-image">
+                        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&auto=format&fit=crop&q=60" alt="Бали">
+                    </div>
+                    <div class="tour-info">
+                        <h3>Отдых на Бали</h3>
+                        <p>10 дней/9 ночей, отель 5*, все включено</p>
+                        <div class="tour-price">от 89 990 ₽</div>
+                        <a href="#contacts" class="btn">Забронировать</a>
+                    </div>
+                </div>
+
+                <!-- Тур 2 -->
+                <div class="tour-card">
+                    <div class="tour-image">
+                        <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400&auto=format&fit=crop&q=60" alt="Тайланд">
+                    </div>
+                    <div class="tour-info">
+                        <h3>Пхукет, Таиланд</h3>
+                        <p>12 дней/11 ночей, завтраки, экскурсии</p>
+                        <div class="tour-price">от 75 500 ₽</div>
+                        <a href="#contacts" class="btn">Забронировать</a>
+                    </div>
+                </div>
+
+                <!-- Тур 3 -->
+                <div class="tour-card">
+                    <div class="tour-image">
+                        <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400&auto=format&fit=crop&q=60" alt="Дубай">
+                    </div>
+                    <div class="tour-info">
+                        <h3>Дубай, ОАЭ</h3>
+                        <p>8 дней/7 ночей, полупансион, шоппинг</p>
+                        <div class="tour-price">от 112 000 ₽</div>
+                        <a href="#contacts" class="btn">Забронировать</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Галерея -->
+    <section class="section" id="gallery">
+        <div class="container">
+            <h2 class="section-title">Наши путешественники</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=300&auto=format&fit=crop&q=60" alt="Путешествие 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=300&auto=format&fit=crop&q=60" alt="Путешествие 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=300&auto=format&fit=crop&q=60" alt="Путешествие 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=300&auto=format&fit=crop&q=60" alt="Путешествие 4">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section class="section" id="contacts" style="background: #f5f5f5;">
+        <div class="container">
+            <h2 class="section-title">Контакты</h2>
+            <div class="contacts-content">
+                <div class="contact-info">
+                    <h3>Наши контакты</h3>
+                    <p>📍 г. Новосибирск, ул. Ленина, 123</p>
+                    <p>📞 +7 (888) 123-45-67</p>
+                    <p>✉️ info@travelworld.ru</p>
+                    <p>🕐 Пн-Пт: 9:00-19:00, Сб: 10:00-16:00</p>
+                </div>
+                <div class="contact-form">
+                    <h3>Оставить заявку</h3>
+                    <form id="contactForm">
+                        <input type="text" placeholder="Ваше имя" required>
+                        <input type="tel" placeholder="Ваш телефон" required>
+                        <input type="email" placeholder="Ваш email">
+                        <textarea placeholder="Ваше сообщение"></textarea>
+                        <button type="submit" class="btn">Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 TravelWorld. Все права защищены.</p>
+            <p>Туристическое агентство</p>
+            <p style="margin-top: 20px; font-size: 14px; color: #ccc;">ИНН 1234567890 | ОГРН 1234567890123</p>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+        });
+        
+        // Закрытие меню при клике на ссылку
+        const menuLinks = mobileMenu.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+            });
+        });
+        
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Форма обратной связи
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.');
+            contactForm.reset();
+        });
+        
+        // Фиксация шапки при скролле
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+            } else {
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
